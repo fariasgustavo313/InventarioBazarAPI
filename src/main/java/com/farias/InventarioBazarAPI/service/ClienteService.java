@@ -14,7 +14,15 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
 
     public void crearCliente(Cliente cliente) {
-        clienteRepository.save(cliente);
+        try {
+            if (cliente.getNombre().isEmpty() || cliente.getApellido().isEmpty() || (cliente.getDni().isEmpty() && cliente.getDni().length() < 6)) {
+                throw new Exception("Los campos no pueden estar vacios y/o el dni no puede tener menos de 6 digitos");
+            } else {
+                clienteRepository.save(cliente);
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        }
     }
 
     public void eliminarCliente(Long id) {
@@ -22,12 +30,19 @@ public class ClienteService {
     }
 
     public void editarCliente(Long id, Cliente cliente) {
-        Cliente cli = clienteRepository.findById(id).orElse(null);
-        cli.setNombre(cliente.getNombre());
-        cli.setApellido(cliente.getApellido());
-        cli.setDni(cliente.getDni());
-
-        clienteRepository.save(cli);
+        try {
+            Cliente cli = clienteRepository.findById(id).orElse(null);
+            if (cliente.getNombre().isEmpty() || cliente.getApellido().isEmpty() || (cliente.getDni().isEmpty() && cliente.getDni().length() < 6)) {
+                throw new Exception("Los campos no pueden estar vacios y/o el dni no puede tener menos de 6 digitos");
+            } else {
+                cli.setNombre(cliente.getNombre());
+                cli.setApellido(cliente.getApellido());
+                cli.setDni(cliente.getDni());
+                clienteRepository.save(cli);
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        }
     }
 
     public Cliente obtenerCliente(Long id) {
