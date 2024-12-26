@@ -1,5 +1,6 @@
 package com.farias.InventarioBazarAPI.service;
 
+import com.farias.InventarioBazarAPI.dto.VentaProductoDTO;
 import com.farias.InventarioBazarAPI.model.Producto;
 import com.farias.InventarioBazarAPI.model.Venta;
 import com.farias.InventarioBazarAPI.repository.VentaRepository;
@@ -68,5 +69,13 @@ public class VentaService {
 
     public List<Venta> listarVentas() {
         return ventaRepository.findAll();
+    }
+
+    public VentaProductoDTO obtenerProductosPorVenta(Long id) {
+        Venta venta = ventaRepository.findById(id).orElse(null);
+        VentaProductoDTO vtaProdDTO = new VentaProductoDTO();
+        vtaProdDTO.setFecha_venta(venta.getFecha_venta());
+        vtaProdDTO.setListaProductos(venta.getListaProductos());
+        return vtaProdDTO;
     }
 }
