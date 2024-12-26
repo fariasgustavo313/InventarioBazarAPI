@@ -1,5 +1,6 @@
 package com.farias.InventarioBazarAPI.service;
 
+import com.farias.InventarioBazarAPI.dto.VentaDTO;
 import com.farias.InventarioBazarAPI.dto.VentaProductoDTO;
 import com.farias.InventarioBazarAPI.model.Producto;
 import com.farias.InventarioBazarAPI.model.Venta;
@@ -77,5 +78,9 @@ public class VentaService {
         vtaProdDTO.setFecha_venta(venta.getFecha_venta());
         vtaProdDTO.setListaProductos(venta.getListaProductos());
         return vtaProdDTO;
+    }
+
+    public VentaDTO obtenerTotalYCantidadVentasPorDia(LocalDate fecha_venta) {
+        return ventaRepository.obtenerTotalYCantidadVentasPorDia(fecha_venta);
     }
 }

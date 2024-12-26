@@ -1,5 +1,6 @@
 package com.farias.InventarioBazarAPI.controller;
 
+import com.farias.InventarioBazarAPI.dto.VentaProductoDTO;
 import com.farias.InventarioBazarAPI.model.Venta;
 import com.farias.InventarioBazarAPI.service.VentaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,10 @@ public class VentaController {
     @GetMapping
     public List<Venta> listarVentas() {
         return ventaService.listarVentas();
+    }
+
+    @GetMapping("/ventas/productos/{id}")
+    public VentaProductoDTO obtenerProductosPorVenta(@PathVariable Long id) {
+        return ventaService.obtenerProductosPorVenta(id);
     }
 }
