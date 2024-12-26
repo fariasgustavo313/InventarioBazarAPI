@@ -58,4 +58,8 @@ public class ProductoService {
     public List<Producto> listarProductos() {
         return productoRepository.findAll();
     }
+
+    public List<Producto> obtenerProductosPorCantidad(int cantidad) {
+        return productoRepository.obtenerProductosPorCantidad(cantidad);
+    }
 }

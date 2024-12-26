@@ -42,4 +42,9 @@ public class ProductoController {
     public List<Producto> listarProductos() {
         return productoService.listarProductos();
     }
+
+    @GetMapping("/stock/{cantidad}")
+    public List<Producto> obtenerProductosPorCantidad(@PathVariable int cantidad) {
+        return productoService.obtenerProductosPorCantidad(cantidad);
+    }
 }
