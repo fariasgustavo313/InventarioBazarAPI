@@ -14,7 +14,15 @@ public class ProductoService {
     private ProductoRepository productoRepository;
 
     public void crearProducto(Producto producto) {
-        productoRepository.save(producto);
+        try {
+            if (producto.getNombre().isEmpty() || producto.getMarca().isEmpty() || producto.getCosto() < 0 || producto.getCantidad_disponible() < 0) {
+                throw new Exception("Los datos ingresados son erroneos");
+            } else {
+                productoRepository.save(producto);
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        }
     }
 
     public void eliminarProducto(Long id) {
@@ -23,12 +31,24 @@ public class ProductoService {
 
     public void editarProducto(Long id, Producto producto) {
         Producto prod = productoRepository.findById(id).orElse(null);
-        prod.setNombre(producto.getNombre());
-        prod.setMarca(producto.getMarca());
-        prod.setCosto(producto.getCosto());
-        prod.setCantidad_disponible(producto.getCantidad_disponible());
+        try {
+            if (producto.getNombre().isEmpty() || producto.getMarca().isEmpty()) {
+                throw new Exception("Los cambios nombre y marca no pueden estas vacios");
+            } else {
+                prod.setNombre(producto.getNombre());
+                prod.setMarca(producto.getMarca());
+            }
 
-        productoRepository.save(prod);
+            if (producto.getCosto() < 0 || producto.getCantidad_disponible() < 0) {
+                throw new Exception(("Los valores de costo y cantidad disponible no pueden ser negativos"));
+            } else {
+                prod.setCosto(producto.getCosto());
+                prod.setCantidad_disponible(producto.getCantidad_disponible());
+            }
+            productoRepository.save(prod);
+        } catch (Exception e) {
+            e.getMessage();
+        }
     }
 
     public Producto obtenerProducto(Long id) {
