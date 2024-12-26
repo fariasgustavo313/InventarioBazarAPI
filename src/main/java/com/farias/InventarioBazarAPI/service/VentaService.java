@@ -1,5 +1,6 @@
 package com.farias.InventarioBazarAPI.service;
 
+import com.farias.InventarioBazarAPI.dto.VentaClienteDTO;
 import com.farias.InventarioBazarAPI.dto.VentaDTO;
 import com.farias.InventarioBazarAPI.dto.VentaProductoDTO;
 import com.farias.InventarioBazarAPI.model.Producto;
@@ -82,5 +83,20 @@ public class VentaService {
 
     public VentaDTO obtenerTotalYCantidadVentasPorDia(LocalDate fecha_venta) {
         return ventaRepository.obtenerTotalYCantidadVentasPorDia(fecha_venta);
+    }
+
+    public VentaClienteDTO obtenerMayorVenta() {
+        Venta venta = ventaRepository.obtenerMayorVenta().stream().findFirst().orElse(null);
+        VentaClienteDTO vtaCliDTO = new VentaClienteDTO();
+
+        vtaCliDTO.setId_venta(venta.getId_venta());
+        vtaCliDTO.setTotal_venta(venta.getTotal());
+
+        int cantidad = venta.getListaProductos().size();
+        vtaCliDTO.setCantidad_productos(cantidad);
+        vtaCliDTO.setNombre_cliente(venta.getCliente().getNombre());
+        vtaCliDTO.setApellido_cliente(venta.getCliente().getApellido());
+
+        return vtaCliDTO;
     }
 }

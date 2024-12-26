@@ -17,4 +17,7 @@ public interface VentaRepository extends JpaRepository<Venta, Long> {
 
     @Query("SELECT SUM(v.total), COUNT(v) FROM Venta v WHERE v.fecha_venta = :fecha_venta")
     VentaDTO obtenerTotalYCantidadVentasPorDia(@Param("fecha_venta") LocalDate fecha_venta);
+
+    @Query("SELECT v FROM Venta v ORDER BY v.total DESC")
+    List<Venta> obtenerMayorVenta();
 }

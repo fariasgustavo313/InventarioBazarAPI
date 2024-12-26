@@ -1,11 +1,14 @@
 package com.farias.InventarioBazarAPI.controller;
 
+import com.farias.InventarioBazarAPI.dto.VentaClienteDTO;
+import com.farias.InventarioBazarAPI.dto.VentaDTO;
 import com.farias.InventarioBazarAPI.dto.VentaProductoDTO;
 import com.farias.InventarioBazarAPI.model.Venta;
 import com.farias.InventarioBazarAPI.service.VentaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -47,5 +50,15 @@ public class VentaController {
     @GetMapping("/ventas/productos/{id}")
     public VentaProductoDTO obtenerProductosPorVenta(@PathVariable Long id) {
         return ventaService.obtenerProductosPorVenta(id);
+    }
+
+    @GetMapping("/fecha/{fecha_venta}")
+    public VentaDTO obtenerTotalYCantidadVentasPorDia(@PathVariable LocalDate fecha_venta) {
+        return ventaService.obtenerTotalYCantidadVentasPorDia(fecha_venta);
+    }
+
+    @GetMapping("/mayor_venta")
+    public VentaClienteDTO obtenerMayorVenta() {
+        return ventaService.obtenerMayorVenta();
     }
 }
