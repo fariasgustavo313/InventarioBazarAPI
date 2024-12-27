@@ -10,6 +10,7 @@ Antes de ejecutar este proyecto, asegúrate de tener instalado lo siguiente:
 - **Maven**
 - **Spring Boot**
 - **MySQL**
+- **Springdoc OpenAPI (para documentación interactiva de la API - http://localhost:8080/swagger-ui.html)**
 
 ## Cómo ejecutar el proyecto
 
